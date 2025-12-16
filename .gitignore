@@ -1,1 +1,22 @@
 data/
+logs/
+spark_venv/
+# Python
+__pycache__/
+*.pyc
+# Jupyter
+.ipynb_checkpoints/
+
+# Spark / PySpark
+spark-warehouse/
+metastore_db/
+checkpoint/
+output/
+
+# Data files
+*.parquet
+*.csv
+*.json
+
+# OS
+.DS_Store

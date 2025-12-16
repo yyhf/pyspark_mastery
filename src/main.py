@@ -8,7 +8,9 @@ import os
 sys.path.append(os.getcwd())
 
 from src.jobs.phase_1_rdd import hello_world,word_count
-from src.jobs.phase_2_sql import simple_etl
+from src.jobs.phase_2_sql import simple_etl,advanced_sql
+from src.jobs.phase_3_streaming import stream_word_count,kafka_etl,stream_static_join,stream_stream_join,monitor_job
+from src.jobs.phase_4_tuning import skew_demo,partition_tuning
 
 def main():
     parse = argparse.ArgumentParser()
@@ -23,7 +25,15 @@ def main():
     job_map = {
         "hello": hello_world.run_job,
         "word_count": word_count.run_job,
-        "simple_etl": simple_etl.run_job
+        "simple_etl": simple_etl.run_job,
+        "advanced_sql": advanced_sql.run_job,
+        "stream_wc": stream_word_count.run_job,
+        "kafka_etl": kafka_etl.run_job,
+        "stream_static_join": stream_static_join.run_job,
+        "stream_stream_join": stream_stream_join.run_job,
+        "monitor_job": monitor_job.run_job,
+        "skew_demo": skew_demo.run_job,
+        "partition_tuning": partition_tuning.run_job
     }
 
     if args.job in job_map:
