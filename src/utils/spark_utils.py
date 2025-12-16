@@ -13,7 +13,10 @@ def get_spark_session(app_name,deploy_mode):
     spark = SparkSession.builder \
                           .appName(app_name) \
                           .master(deploy_mode) \
+                          .config("spark.jars.packages","org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.5") \
+                          .config("spark.sql.shuffle,partitions","2") \
                           .getOrCreate()
+                          
     # 设置日志级别，避免控制台被INFO刷屏
     spark.sparkContext.setLogLevel("WARN")
 
@@ -21,7 +24,7 @@ def get_spark_session(app_name,deploy_mode):
 
 def run_job():
     # 1. 初始化 Spark
-    spark = get_spark_session("ETL_Job_Demo")
+    spark = get_spark_session("ETL_Job_Demo","local[*]")
     
     # 2. 读取数据 (E - Extract)
     # 假设 data/input 下有个 users.csv
@@ -59,7 +62,6 @@ if __name__ == "__main__":
 import sys
 import argparse
 from src.jobs.phase_1_rdd import word_count
-from src.jobs.phase_2_sql import etl_job
 
 def main():
     parser = argparse.ArgumentParser(description="PySpark 学习项目入口")
